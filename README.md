@@ -8,3 +8,6 @@ The GUI was made using the Tkinter framework, and consists of two entry boxes fo
 
 
 <p align="center"><img src="https://raw.githubusercontent.com/jpweber234/InclineCalculator/master/Incline%20Calculator%20GUI%20Image.PNG"/></p>
+
+
+<p align="center"><img src="https://raw.githubusercontent.com/jpweber234/InclineCalculator/master/Incline%20Calculator%20Plot%20Image.png"/></p>
