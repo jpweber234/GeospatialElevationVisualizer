@@ -24,6 +24,8 @@ def plot_limits(x_limit, y_limits):
 def set_axes(x_limit, y_limits):
     plt.gca().set_aspect('equal', adjustable='box')  # Boxes will adjust to remain to scale
 
+    x_limit = x_limit + 500
+
     tick = np.arange(0, x_limit, 528).tolist()  # X-Axis tick mark locations
     x_label = np.arange(0, (x_limit / 5280), 0.1).tolist()  # X-axis tick labels
 
@@ -58,7 +60,9 @@ def plot(line):
 
     plot_line = plt.plot(line.get_x_coordinates(), line.get_y_coordinates(),
                          label=line.get_plot_text())  # Creates line to plot with associated plot text
+
     plotted_line_stack.append(plot_line)  # add plotted line to plotted line stack
 
-    plt.legend()  # Displays legend
-    plt.show()  # Shows plot
+    plt.legend(loc='center', bbox_to_anchor=(0.5, -0.3),
+               ncol=4, fancybox=True, shadow=True, prop={'size': 6})  # Displays legend
+

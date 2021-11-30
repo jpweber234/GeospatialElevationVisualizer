@@ -17,18 +17,26 @@ def peek_stack(stack):
 
 
 # Retrieves X Coordinates of line at the top of the line stack
-def get_previous_x():
-    return peek_stack(line_stack).get_x_coordinates()
+def get_previous_x(stack):
+    return peek_stack(stack).get_x_coordinates()
 
 
 # Retrieves X Coordinates of line at the top of the line stack
-def get_previous_y():
-    return peek_stack(line_stack).get_y_coordinates()
+def get_previous_y(stack):
+    return peek_stack(stack).get_y_coordinates()
 
 
-def get_previous_min_height():
-    return peek_stack(line_stack).get_extreme_heights()[0]
+def get_previous_min_height(stack):
+    return peek_stack(stack).get_extreme_heights()[0]
 
 
-def get_previous_max_height():
-    return peek_stack(line_stack).get_extreme_heights()[1]
+def get_previous_max_height(stack):
+    return peek_stack(stack).get_extreme_heights()[1]
+
+
+def get_previous_latitude(stack):
+    return peek_stack(stack).get_latitude()
+
+
+def get_previous_longitude(stack):
+    return peek_stack(stack).get_longitude()

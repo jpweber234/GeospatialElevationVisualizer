@@ -1,4 +1,5 @@
 from gui_init import *
+import requests
 
 
 # Gets direct inputs from Entry boxes
@@ -38,3 +39,68 @@ def convert_inputs():
     height_change = float(change.get())  # Elevation change from user
     trail_distance = float(distance.get())  # Trail Length from user
     return height_change, trail_distance
+
+
+# Retrieves coordinate inputs from entry boxes
+def get_coordinates():
+    return latitude_1.get(), longitude_1.get(), latitude_2.get(), longitude_2.get()
+
+
+# Formats coordinates for input into Open Elevation API
+def format_coordinates(lat, lon):  # inputs are strings
+    return lat + ", " + lon  # outputs is a string
+
+
+# Utilizes Open Elevation API to retrieve elevation for a given geographic coordinate
+def get_elevation(payload):
+    r = requests.get('https://api.open-elevation.com/api/v1/lookup?', params={"locations": payload})
+    return r.json()["results"][0]["elevation"]  # returns elevation in meters as a string
+
+
+# Returns elevation in feet as a float rounded to 2 decimal places
+def calculate_elevation(coordinate):
+    return round(float(get_elevation(coordinate) * 3.28084), 2)
+
+
+# Verifies that coordinates are numeric, and updates status text if not
+def verify_numeric_coordinates(coordinates):
+    for coordinate in coordinates:
+        if not isNumber(coordinate):
+            status_text_2["text"] = "Latitude and Longitude coordinates\nmust be numeric values"
+            return False
+    return True
+
+
+# Verifies that increment is numeric, and updates status text if not
+def verify_numeric_increment(increment):
+    if not isNumber(increment):
+        status_text_2["text"] = "Increment must be numeric value"
+        return False
+    return True
+
+
+# Verifies latitude is between -90 and 90 degrees, and updates status text if not
+def verify_latitude(latitude):
+    if abs(latitude) > 90:
+        status_text_2["text"] = "Latitude must be between -90 and 90 degrees"
+        return False
+    return True
+
+
+# Verifies latitude is between -180 and 180 degrees, and updates status text if not
+def verify_longitude(longitude):
+    if abs(longitude) > 180:
+        status_text_2["text"] = "Longitude must be between -180 and 180 degrees"
+        return False
+    return True
+
+
+# Limits size of increment to between 1 and 16, and updates status text if outside this range
+def verify_increment(increment):
+    if increment > 16:
+        status_text_2["text"] = "Increment must be less than 16"
+        return False
+    elif increment <= 0:
+        status_text_2["text"] = "Increment must be at least 1"
+        return False
+    return True

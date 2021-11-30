@@ -1,5 +1,5 @@
 from plot_ops import *
-from line_creation import *
+from coordinates import *
 
 
 # Adds line to plot
@@ -7,6 +7,15 @@ def add():
     line = create_line()  # Creates line
     if line:  # If line is created successfully
         plot(line)  # Plot line
+    plt.show()
+
+
+def calculate():
+    create_coordinate_list()  # Create list of coordinates to plot
+    for index, point in enumerate(coordinate_list[1:]):  # For each coordinate (except for the first)
+        line = create_coordinate_line(point[0], point[1])  # Create a coordinate line
+        plot(line)  # Plot the line
+    plt.show()  # Display the plot
 
 
 # Removes line from both stacks, and returns line so it can be removed
@@ -40,6 +49,7 @@ def remove():
         plt.clf()  # Clear plot
     else:  # If no lines in stack
         status_text["text"] = "Plot is empty!"  # Update status text
+        status_text_2["text"] = "Plot is empty!"  # Update status text
 
     plt.show()  # Display plot
 
@@ -49,3 +59,24 @@ def recalculate():
     if len(plotted_line_stack) >= 2:  # If there is at least one line in stack
         remove()  # Remove most recent line
     add()  # Add line using current values in Entry boxes
+
+
+def reset():
+    # Remove all lines from plotted_line_stack, except default
+    while len(plotted_line_stack) > 1:
+        remove()
+
+    # Remove all lines from line_stack, except default
+    while len(line_stack) > 1:
+        line_stack.pop()
+
+    # Clear coordinate_list
+    while len(coordinate_list) != 0:
+        coordinate_list.pop()
+
+    line_stack[0] = default_line  # Reset default line values
+
+    # Update status text on both tabs
+    status_text["text"] = "Enter a valid input:\n1. Both inputs must be numeric\n2. Elevation change must not exceed " \
+                          "Distance "
+    status_text_2["text"] = "Enter 2 valid coordinates and\nnumber of increments to plot"
