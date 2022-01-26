@@ -1,5 +1,7 @@
 # InclineCalculator
 
+**\*\*UPDATE 1/25/2022: The Open Elevation API has lost its SSL Certificate, which prevents the Coordinates tab from functioning properly. To get around the verification of the SSL license, you can add "verify=False" inside the request.get() function in line 56 of gui_data.py. However, connect to the API at your own risk, since the connection may not be private\*\***
+
 The idea for this project came from my love of hiking, but frustration over how trail steepness is described. Many people will say "This trail gains 3000 feet over 2 miles", which I find difficult to understand. This visualizer attempts to solve this problem. 
 
 On the "Elevation and Distance" tab, the user inputs an Elevation Change (in feet, can be negative), and a Trail Length (in miles, should not be negative). When a user adds the line to the plot by clicking the "Add" button, the program calculates the horizontal ("birds eye") distance, and plots a line from the current starting point to the new coordinate given by (horizontal distance, elevation change). The program also calculates the incline angle (degrees) and grade of the incline, both of which are displayed on the plot. The user has the ability to add multiple lines to the plot by continuing to click the "Add" button, but can also remove lines from the plot via the "Remove" button, or recalculate the most recently plotted line via the "Recalculate" button.
